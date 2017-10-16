@@ -1,9 +1,8 @@
 package com.au.shareinfoserver.dao;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.ColumnDefault;
+
+import javax.persistence.*;
 
 @Entity
 public class CarInfo {
@@ -11,15 +10,17 @@ public class CarInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String cardNumber;
+    @Column(nullable = false)
+    private String carNumber;
 
     private String province;
 
     private String city;
 
+    @Column(nullable = false)
     private String location;
 
-    private Integer numOfPeople;
+    private Integer numOfPeople = 0;
 
     public Integer getId() {
         return id;
@@ -37,12 +38,12 @@ public class CarInfo {
         this.location = location;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public String getCarNumber() {
+        return carNumber;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 
     public String getProvince() {

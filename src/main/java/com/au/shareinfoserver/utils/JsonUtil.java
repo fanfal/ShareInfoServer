@@ -3,13 +3,17 @@ package com.au.shareinfoserver.utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 public class JsonUtil {
     private final static ObjectMapper MAPPER;
+    private static Gson gson = new GsonBuilder().create();
 
     static {
         MAPPER = new ObjectMapper();
@@ -32,5 +36,18 @@ public class JsonUtil {
             throw new RuntimeException("Convert json error" + jsonString);
         }
     }
+
+    public static <T> T parseJson(String jsonString, Class<T> type) {
+        return gson.fromJson(jsonString, type);
+    }
+
+    public static <T> T parseJson(String jsonString, Type type) {
+        return gson.fromJson(jsonString, type);
+    }
+
+    public static String toJson(Object object) {
+        return gson.toJson(object);
+    }
+
 
 }

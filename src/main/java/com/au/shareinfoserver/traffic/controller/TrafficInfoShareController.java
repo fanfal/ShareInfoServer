@@ -1,10 +1,8 @@
 package com.au.shareinfoserver.traffic.controller;
 
-import com.au.shareinfoserver.dao.CarInfo;
-import com.au.shareinfoserver.dao.CarInfoRepository;
 import com.au.shareinfoserver.traffic.model.ShareInfo;
+import com.au.shareinfoserver.traffic.service.TrafficInfoShareService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
@@ -20,14 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TrafficInfoShareController {
 
     @Autowired
-    CarInfoRepository carInfoRepository;
-
+    TrafficInfoShareService shareService;
     @RequestMapping(value = "/share")
     public ResponseEntity shareLocation(@RequestBody final ShareInfo shareInfo) throws JsonProcessingException {
-        CarInfo carInfo = new CarInfo();
-        carInfo.setCardNumber(shareInfo.getCarInfo().getCardNumber());
-        carInfo.setLocation(new ObjectMapper().writeValueAsString(shareInfo.getLocation()));
-        carInfoRepository.save(carInfo);
-        return ResponseEntity.ok().build();
+        return shareService.saveShareInfo(shareInfo);
     }
 }

@@ -1,7 +1,7 @@
 package com.au.shareinfoserver.traffic.model;
 
 public class CarInfo {
-    private String cardNumber;
+    private String carNumber;
     private String city;
     private String province;
 
@@ -22,11 +22,11 @@ public class CarInfo {
         this.city = city;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public String getCarNumber() {
+        return carNumber;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 }
