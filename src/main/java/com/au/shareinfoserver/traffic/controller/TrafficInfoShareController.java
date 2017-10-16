@@ -1,8 +1,8 @@
-package com.au.shareinfoserver.traffice.controller;
+package com.au.shareinfoserver.traffic.controller;
 
 import com.au.shareinfoserver.dao.CarInfo;
 import com.au.shareinfoserver.dao.CarInfoRepository;
-import com.au.shareinfoserver.traffice.model.ShareInfo;
+import com.au.shareinfoserver.traffic.model.ShareInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

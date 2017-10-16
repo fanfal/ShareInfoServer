@@ -1,4 +1,4 @@
-package com.au.shareinfoserver.traffice.model;
+package com.au.shareinfoserver.traffic.model;
 
 public class CarInfo {
     private String cardNumber;

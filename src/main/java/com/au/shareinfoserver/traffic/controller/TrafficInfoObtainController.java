@@ -1,4 +1,4 @@
-package com.au.shareinfoserver.traffice.controller;
+package com.au.shareinfoserver.traffic.controller;
 
 import com.au.shareinfoserver.dao.CarInfo;
 import com.au.shareinfoserver.dao.CarInfoRepository;
