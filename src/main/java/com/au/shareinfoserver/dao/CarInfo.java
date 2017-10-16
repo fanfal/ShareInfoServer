@@ -1,7 +1,5 @@
 package com.au.shareinfoserver.dao;
 
-import org.hibernate.annotations.Table;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +13,13 @@ public class CarInfo {
 
     private String cardNumber;
 
+    private String province;
+
+    private String city;
+
     private String location;
+
+    private Integer numOfPeople;
 
     public Integer getId() {
         return id;
@@ -39,5 +43,29 @@ public class CarInfo {
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Integer getNumOfPeople() {
+        return numOfPeople;
+    }
+
+    public void setNumOfPeople(Integer numOfPeople) {
+        this.numOfPeople = numOfPeople;
     }
 }

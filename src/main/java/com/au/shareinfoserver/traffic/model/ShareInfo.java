@@ -3,6 +3,7 @@ package com.au.shareinfoserver.traffic.model;
 public class ShareInfo {
     private CarInfo carInfo;
     private Location location;
+    private Integer numOfPeople;
 
     public CarInfo getCarInfo() {
         return carInfo;
@@ -18,5 +19,13 @@ public class ShareInfo {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Integer getNumOfPeople() {
+        return numOfPeople;
+    }
+
+    public void setNumOfPeople(Integer numOfPeople) {
+        this.numOfPeople = numOfPeople;
     }
 }
