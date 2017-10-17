@@ -50,7 +50,7 @@ public class TrafficInfoShareService {
     }
 
 
-    private Integer distance(float lat1, float lng1, float lat2, float lng2) {
+    private Integer distance(double lat1, double lng1, double lat2, double lng2) {
         double earthRadius = 6371000; //meters
         double dLat = Math.toRadians(lat2 - lat1);
         double dLng = Math.toRadians(lng2 - lng1);

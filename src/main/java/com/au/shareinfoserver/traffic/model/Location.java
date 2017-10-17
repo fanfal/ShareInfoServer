@@ -1,23 +1,23 @@
 package com.au.shareinfoserver.traffic.model;
 
 public class Location {
-    private Long longitude;
-    private Long latitude;
+    private Double longitude;
+    private Double latitude;
 
-    public Long getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
 
-    public Long getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 }
