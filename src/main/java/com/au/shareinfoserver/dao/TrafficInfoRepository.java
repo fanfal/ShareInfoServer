@@ -11,11 +11,11 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface CarInfoRepository extends JpaRepository<CarInfo, Long> {
-    List<CarInfo> findByCarNumber(String cardNumber);
+public interface TrafficInfoRepository extends JpaRepository<TrafficInfo, Long> {
+    List<TrafficInfo> findByCarNumber(String cardNumber);
 
     @Modifying(clearAutomatically = true)
-    @Query("update CarInfo cardInfo set cardInfo.numOfPeople = :numOfPeople where  cardInfo.id = :id")
+    @Query("update TrafficInfo info set info.numOfPeople = :numOfPeople where  info.id = :id")
     void updateNumberOfPeople(@Param("numOfPeople") Integer numOfPeople, @Param("id") Integer id);
 
 

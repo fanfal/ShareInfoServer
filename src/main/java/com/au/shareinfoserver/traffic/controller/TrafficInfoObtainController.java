@@ -1,6 +1,7 @@
 package com.au.shareinfoserver.traffic.controller;
 
-import com.au.shareinfoserver.dao.CarInfoRepository;
+import com.au.shareinfoserver.dao.TrafficInfoRepository;
+import com.au.shareinfoserver.traffic.convertor.TrafficInfoConvertor;
 import com.au.shareinfoserver.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,12 +18,14 @@ import java.util.Map;
 @RequestMapping(value = "/traffic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 public class TrafficInfoObtainController {
     @Autowired
-    CarInfoRepository carInfoRepository;
+    TrafficInfoRepository carInfoRepository;
+    @Autowired
+    TrafficInfoConvertor trafficInfoConvertor;
 
     @RequestMapping(value = "/obtain")
     public String shareLocation() {
         Map result = new HashMap();
-        result.put("result", carInfoRepository.findAll());
+        result.put("result", trafficInfoConvertor.convertTrafficInfoListToCarInfoList(carInfoRepository.findAll()));
         return JsonUtil.asJsonString(result);
     }
 

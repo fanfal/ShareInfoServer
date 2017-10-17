@@ -1,7 +1,8 @@
 package com.au.shareinfoserver.traffic.service;
 
-import com.au.shareinfoserver.dao.CarInfo;
-import com.au.shareinfoserver.dao.CarInfoRepository;
+import com.au.shareinfoserver.dao.TrafficInfo;
+import com.au.shareinfoserver.dao.TrafficInfoRepository;
+import com.au.shareinfoserver.traffic.convertor.TrafficInfoConvertor;
 import com.au.shareinfoserver.traffic.model.Location;
 import com.au.shareinfoserver.traffic.model.ShareInfo;
 import com.au.shareinfoserver.utils.JsonUtil;
@@ -11,20 +12,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.au.shareinfoserver.utils.JsonUtil.toJson;
-
 @Service
 public class TrafficInfoShareService {
     private static final Integer MIN_DISTANCE = 100;
     @Autowired
-    CarInfoRepository carInfoRepository;
+    TrafficInfoRepository carInfoRepository;
+    @Autowired
+    TrafficInfoConvertor trafficInfoConvertor;
 
     public ResponseEntity saveShareInfo(ShareInfo shareInfo) {
-        List<CarInfo> carInfos = carInfoRepository.findByCarNumber(shareInfo.getCarInfo().getCarNumber());
+        List<TrafficInfo> carInfos = carInfoRepository.findByCarNumber(shareInfo.getCarInfo().getCarNumber());
         Location shareLocation = shareInfo.getLocation();
 
         if (carInfos != null) {
-            for (CarInfo carInfo :
+            for (TrafficInfo carInfo :
                     carInfos) {
                 Location storedLocation = JsonUtil.parseJson(carInfo.getLocation(), Location.class);
                 if (distance(shareLocation.getLatitude(), shareLocation.getLongitude(),
@@ -35,18 +36,9 @@ public class TrafficInfoShareService {
             }
 
         }
-        return saveShareInfoToDataBase(shareInfo);
-
-    }
-
-    private ResponseEntity saveShareInfoToDataBase(ShareInfo shareInfo) {
-        CarInfo carInfo = new CarInfo();
-        carInfo.setLocation(toJson(shareInfo.getLocation()));
-        carInfo.setCarNumber(shareInfo.getCarInfo().getCarNumber());
-        carInfo.setCity(shareInfo.getCarInfo().getCity());
-        carInfo.setProvince(shareInfo.getCarInfo().getProvince());
-        carInfoRepository.save(carInfo);
+        carInfoRepository.save(trafficInfoConvertor.convertShareInfoToCarInfo(shareInfo));
         return ResponseEntity.ok().build();
+
     }
 
 
