@@ -1,10 +1,12 @@
 package com.au.shareinfoserver.traffic.convertor;
 
 import com.au.shareinfoserver.dao.TrafficInfo;
+import com.au.shareinfoserver.dao.TrafficInfoRepository;
 import com.au.shareinfoserver.traffic.model.CarInfo;
 import com.au.shareinfoserver.traffic.model.Location;
 import com.au.shareinfoserver.traffic.model.ShareInfo;
 import com.au.shareinfoserver.utils.JsonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,6 +16,9 @@ import static com.au.shareinfoserver.utils.JsonUtil.toJson;
 
 @Component
 public class TrafficInfoConvertor {
+    @Autowired
+    TrafficInfoRepository carInfoRepository;
+
     public TrafficInfo convertShareInfoToCarInfo(ShareInfo shareInfo) {
         TrafficInfo trafficInfo = new TrafficInfo();
         trafficInfo.setLocation(toJson(shareInfo.getLocation()));
@@ -24,10 +29,14 @@ public class TrafficInfoConvertor {
     }
 
 
-    public List<ShareInfo> convertTrafficInfoListToCarInfoList(List<TrafficInfo> trafficInfoList) {
+    public List<ShareInfo> convertTrafficInfoListToCarInfoList(String carNumber) {
         ArrayList shareInfoLists = new ArrayList();
+        if (carNumber == null || carNumber.isEmpty())
+            return shareInfoLists;
+
+        List<TrafficInfo> trafficInfos = carInfoRepository.findByCarNumber(carNumber);
         for (TrafficInfo trafficInfo :
-                trafficInfoList) {
+                trafficInfos) {
             shareInfoLists.add(convertTrafficInfoToCarInfo(trafficInfo));
         }
         return shareInfoLists;

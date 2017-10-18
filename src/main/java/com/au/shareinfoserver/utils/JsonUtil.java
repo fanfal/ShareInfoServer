@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JsonUtil {
@@ -21,6 +22,14 @@ public class JsonUtil {
     }
 
     public static String asJsonString(Map<String, Object> result) {
+        try {
+            return MAPPER.writeValueAsString(result).replace("\u2028", "").replace("\u2029", "");
+        } catch (IOException e) {
+            throw new RuntimeException("Transfer json error");
+        }
+    }
+
+    public static String asJsonString(List<Object> result) {
         try {
             return MAPPER.writeValueAsString(result).replace("\u2028", "").replace("\u2029", "");
         } catch (IOException e) {

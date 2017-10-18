@@ -19,4 +19,6 @@ public interface TrafficInfoRepository extends JpaRepository<TrafficInfo, Long> 
     void updateNumberOfPeople(@Param("numOfPeople") Integer numOfPeople, @Param("id") Integer id);
 
 
+    @Query("select info from TrafficInfo info where info.carNumber = :carNumber")
+    List<TrafficInfo> getTrafficInfoByCarNumber(@Param("carNumber") String carNumber);
 }
