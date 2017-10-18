@@ -1,6 +1,5 @@
 package com.au.shareinfoserver.traffic.controller;
 
-import com.au.shareinfoserver.dao.TrafficInfoRepository;
 import com.au.shareinfoserver.traffic.convertor.TrafficInfoConvertor;
 import com.au.shareinfoserver.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @EnableAutoConfiguration
@@ -24,8 +21,9 @@ public class TrafficInfoObtainController {
 
     @RequestMapping(value = "/obtain")
     public String shareLocation(@RequestParam("carNumber") String carNumber) {
-        List results =  trafficInfoConvertor.convertTrafficInfoListToCarInfoList(carNumber);
-        return JsonUtil.asJsonString(results);
+        HashMap result = new HashMap();
+        result.put("result", trafficInfoConvertor.convertTrafficInfoListToCarInfoList(carNumber));
+        return JsonUtil.asJsonString(result);
     }
 
 }
