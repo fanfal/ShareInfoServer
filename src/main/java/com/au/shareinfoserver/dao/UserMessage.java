@@ -11,7 +11,7 @@ public class UserMessage {
     @Column(nullable = false)
     private String phoneNum;
     @Column(nullable = false)
-    private String uuid;
+    private String infoUuid;
     @Column(nullable = false)
     private String message;
     @Column(nullable = false)
@@ -33,12 +33,12 @@ public class UserMessage {
         this.phoneNum = phoneNum;
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getInfoUuid() {
+        return infoUuid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setInfoUuid(String infoUuid) {
+        this.infoUuid = infoUuid;
     }
 
     public String getMessage() {

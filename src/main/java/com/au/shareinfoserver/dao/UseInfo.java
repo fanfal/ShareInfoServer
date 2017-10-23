@@ -3,6 +3,7 @@ package com.au.shareinfoserver.dao;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"phoneNum"})})
 public class UseInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +15,6 @@ public class UseInfo {
     private String passWord;
 
     private String emailAddress;
-    private String deviceId;
     private Integer credit = 0;
     private Integer cash = 0;
 
@@ -48,14 +48,6 @@ public class UseInfo {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
     }
 
     public Integer getCredit() {
