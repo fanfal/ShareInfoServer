@@ -15,10 +15,15 @@ public interface TrafficInfoRepository extends JpaRepository<TrafficInfo, Long> 
     List<TrafficInfo> findByCarNumber(String cardNumber);
 
     @Modifying(clearAutomatically = true)
-    @Query("update TrafficInfo info set info.numOfPeople = :numOfPeople where  info.id = :id")
-    void updateNumberOfPeople(@Param("numOfPeople") Integer numOfPeople, @Param("id") Integer id);
+    @Query("update TrafficInfo info set info.numOfPeople = :numOfPeople where  info.uuid = :uuid")
+    void updateNumberOfPeople(@Param("numOfPeople") Integer numOfPeople, @Param("uuid") String uuid);
 
 
     @Query("select info from TrafficInfo info where info.carNumber = :carNumber")
     List<TrafficInfo> getTrafficInfoByCarNumber(@Param("carNumber") String carNumber);
+
+    @Modifying(clearAutomatically = true)
+    @Query("update TrafficInfo info set info.numOfPeople = :numOfPeople, info.location = :location where  info.uuid = :uuid")
+    void updateTrafficInfo(@Param("numOfPeople") Integer numOfPeople, @Param("location") String location, @Param("uuid") String uuid);
+
 }

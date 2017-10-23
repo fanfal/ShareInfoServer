@@ -1,7 +1,5 @@
 package com.au.shareinfoserver.dao;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +7,8 @@ public class TrafficInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    private String uuid;
 
     @Column(nullable = false)
     private String carNumber;
@@ -68,5 +68,13 @@ public class TrafficInfo {
 
     public void setNumOfPeople(Integer numOfPeople) {
         this.numOfPeople = numOfPeople;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

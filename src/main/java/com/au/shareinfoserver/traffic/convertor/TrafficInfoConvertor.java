@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static com.au.shareinfoserver.utils.JsonUtil.toJson;
 
@@ -25,6 +26,7 @@ public class TrafficInfoConvertor {
         trafficInfo.setCarNumber(shareInfo.getCarInfo().getCarNumber());
         trafficInfo.setCity(shareInfo.getCarInfo().getCity());
         trafficInfo.setProvince(shareInfo.getCarInfo().getProvince());
+        trafficInfo.setUuid(UUID.randomUUID().toString());
         return trafficInfo;
     }
 

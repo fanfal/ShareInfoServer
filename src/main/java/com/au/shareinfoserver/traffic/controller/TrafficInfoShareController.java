@@ -21,6 +21,6 @@ public class TrafficInfoShareController {
     TrafficInfoShareService shareService;
     @RequestMapping(value = "/share")
     public ResponseEntity shareLocation(@RequestBody final ShareInfo shareInfo) throws JsonProcessingException {
-        return shareService.saveShareInfo(shareInfo);
+        return shareService.handleShareInfo(shareInfo);
     }
 }
