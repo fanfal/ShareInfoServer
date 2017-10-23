@@ -36,6 +36,7 @@ public class TrafficInfoShareService {
             }
 
         }
+        shareInfo.setNumOfPeople(1);
         carInfoRepository.save(trafficInfoConvertor.convertShareInfoToCarInfo(shareInfo));
         return ResponseEntity.ok().build();
 
