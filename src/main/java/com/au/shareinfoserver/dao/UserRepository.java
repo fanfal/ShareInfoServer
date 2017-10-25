@@ -7,6 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface UserInfoRepository extends JpaRepository<UseInfo, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }

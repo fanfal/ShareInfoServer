@@ -30,6 +30,7 @@ dependencies {
     compile('com.google.guava:guava:19.0')
     compile 'com.google.code.gson:gson:2.8.2'
     compile ('postgresql:postgresql:42.1.1')
+    testCompile("org.springframework.boot:spring-boot-starter-security")
     runtime('com.h2database:h2')
     runtime('mysql:mysql-connector-java')
     compile 'postgresql:postgresql:9.1-901-1.jdbc4'
