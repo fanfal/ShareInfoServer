@@ -1,4 +1,4 @@
-package com.au.shareinfoserver.security;
+package com.au.shareinfoserver.user.service;
 
 import com.au.shareinfoserver.dao.User;
 import com.au.shareinfoserver.dao.UserRepository;
