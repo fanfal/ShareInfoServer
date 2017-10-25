@@ -18,7 +18,10 @@ public class User {
     private String emailAddress;
     private Integer credit = 0;
     private Integer cash = 0;
-    private Set<UserMessage> userMessages;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "User_Message", joinColumns = {@JoinColumn(name = "User_phoneNum")}, inverseJoinColumns = {@JoinColumn(name = "Message_phoneNum")})
+    private Set<Message> messages;
 
     public Integer getId() {
         return id;
@@ -68,13 +71,11 @@ public class User {
         this.cash = cash;
     }
 
-    @OneToMany
-    @JoinTable(name = "User_UserMessage", joinColumns = @JoinColumn(name = "User_phoneNum"), inverseJoinColumns = @JoinColumn(name = "UserMessage_phoneNum"))
-    public Set<UserMessage> getUserMessages() {
-        return userMessages;
+    public Set<Message> getMessages() {
+        return messages;
     }
 
-    public void setUserMessages(Set<UserMessage> userMessages) {
-        this.userMessages = userMessages;
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 }

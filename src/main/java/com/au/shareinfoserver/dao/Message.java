@@ -1,9 +1,10 @@
 package com.au.shareinfoserver.dao;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-public class UserMessage {
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
