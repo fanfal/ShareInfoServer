@@ -15,7 +15,6 @@ public class User {
     @Column(nullable = false)
     private String passWord;
 
-    private String emailAddress;
     private Integer credit = 0;
     private Integer cash = 0;
 
@@ -45,14 +44,6 @@ public class User {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
     }
 
     public Integer getCredit() {

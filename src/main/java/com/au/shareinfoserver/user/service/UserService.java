@@ -3,7 +3,11 @@ package com.au.shareinfoserver.user.service;
 import com.au.shareinfoserver.dao.User;
 
 public interface UserService {
-    void saveUser(User user);
+    void register(User user);
 
-    User findByPhoneNum(String phoneNum);
+    String login(String phoneNum, String password);
+
+    String refresh(String oldToken);
+
+    String encodePassWord(String passWord);
 }

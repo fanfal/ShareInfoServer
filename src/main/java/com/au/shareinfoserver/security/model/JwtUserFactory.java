@@ -1,4 +1,4 @@
-package com.au.shareinfoserver.user.model;
+package com.au.shareinfoserver.security.model;
 
 
 import com.au.shareinfoserver.dao.User;
@@ -12,7 +12,6 @@ public class JwtUserFactory {
                 user.getId(),
                 user.getPhoneNum(),
                 user.getPassWord(),
-                user.getEmailAddress(),
                 user.getCredit(),
                 user.getCash()
         );

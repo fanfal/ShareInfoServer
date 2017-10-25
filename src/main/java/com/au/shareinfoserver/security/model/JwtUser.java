@@ -1,4 +1,4 @@
-package com.au.shareinfoserver.user.model;
+package com.au.shareinfoserver.security.model;
 
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,16 +13,14 @@ public class JwtUser implements UserDetails {
     private Integer id;
     private String phoneNum;
     private String passWord;
-    private String emailAddress;
     private Integer credit;
     private Integer cash;
     private Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
-    public JwtUser(Integer id, String phoneNum, String passWord, String emailAddress, Integer credit, Integer cash) {
+    public JwtUser(Integer id, String phoneNum, String passWord, Integer credit, Integer cash) {
         this.id = id;
         this.phoneNum = phoneNum;
         this.passWord = passWord;
-        this.emailAddress = emailAddress;
         this.credit = credit;
         this.cash = cash;
         grantedAuthorities.add(new SimpleGrantedAuthority("custom"));
@@ -34,14 +32,6 @@ public class JwtUser implements UserDetails {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
     }
 
     public Integer getCredit() {
@@ -77,21 +67,21 @@ public class JwtUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
