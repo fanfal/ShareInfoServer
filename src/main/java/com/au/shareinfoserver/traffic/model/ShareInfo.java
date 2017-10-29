@@ -4,7 +4,6 @@ public class ShareInfo {
     private CarInfo carInfo;
     private Location location;
     private Integer numOfPeople;
-    private Boolean isAboard;
 
     public CarInfo getCarInfo() {
         return carInfo;
@@ -28,13 +27,5 @@ public class ShareInfo {
 
     public void setNumOfPeople(Integer numOfPeople) {
         this.numOfPeople = numOfPeople;
-    }
-
-    public Boolean getAboard() {
-        return isAboard;
-    }
-
-    public void setAboard(Boolean aboard) {
-        isAboard = aboard;
     }
 }

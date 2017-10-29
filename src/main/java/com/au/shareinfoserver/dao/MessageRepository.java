@@ -7,4 +7,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface MessageRepository extends JpaRepository<Message, Long> {
+    void deleteByPhoneNumAndInfoUuid(String phoneNum, String infoUuid);
 }

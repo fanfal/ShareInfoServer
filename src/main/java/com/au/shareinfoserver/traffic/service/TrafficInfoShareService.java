@@ -1,8 +1,11 @@
 package com.au.shareinfoserver.traffic.service;
 
+import com.au.shareinfoserver.dao.Message;
+import com.au.shareinfoserver.dao.MessageRepository;
 import com.au.shareinfoserver.dao.TrafficInfo;
 import com.au.shareinfoserver.dao.TrafficInfoRepository;
 import com.au.shareinfoserver.traffic.convertor.TrafficInfoConvertor;
+import com.au.shareinfoserver.traffic.convertor.TrafficMessageConvertor;
 import com.au.shareinfoserver.traffic.model.Location;
 import com.au.shareinfoserver.traffic.model.ShareInfo;
 import com.au.shareinfoserver.utils.JsonUtil;
@@ -18,48 +21,64 @@ public class TrafficInfoShareService {
     private static final Integer MIN_DISTANCE = 50;
     private static final Integer ONE = 1;
     @Autowired
-    TrafficInfoRepository carInfoRepository;
+    TrafficInfoRepository trafficInfoRepository;
     @Autowired
     TrafficInfoConvertor trafficInfoConvertor;
+    @Autowired
+    TrafficMessageConvertor trafficMessageConvertor;
+    @Autowired
+    MessageRepository messageRepository;
 
-    public ResponseEntity saveOrUpdateInfo(ShareInfo shareInfo) {
-        List<TrafficInfo> carInfos = carInfoRepository.findByCarNumber(shareInfo.getCarInfo().getCarNumber());
+    public TrafficInfo saveTrafficInfo(ShareInfo shareInfo) {
+        //ToDo Add more logic to analysis this share behaviour.
+        TrafficInfo trafficInfo = updateTrafficInfo(shareInfo);
+        if (trafficInfo == null)
+            trafficInfo = createNewShareInfo(shareInfo);
+        return trafficInfo;
+
+    }
+
+    public TrafficInfo updateTrafficInfo(ShareInfo shareInfo) {
+        List<TrafficInfo> carInfos = trafficInfoRepository.findByCarNumber(shareInfo.getCarInfo().getCarNumber());
         Location shareLocation = shareInfo.getLocation();
 
         if (carInfos != null) {
             for (TrafficInfo carInfo :
                     carInfos) {
-                if (updateShareInfo(shareLocation, carInfo)) return ResponseEntity.ok().build();
+                if (updateTrafficInfoLocation(shareLocation, carInfo)) return carInfo;
             }
-
         }
-        createNewShareInfo(shareInfo);
-        return ResponseEntity.ok().build();
-
+        return null;
     }
 
-    private void createNewShareInfo(ShareInfo shareInfo) {
+
+    private TrafficInfo createNewShareInfo(ShareInfo shareInfo) {
         shareInfo.setNumOfPeople(ONE);
-        carInfoRepository.save(trafficInfoConvertor.convertShareInfoToCarInfo(shareInfo));
+        TrafficInfo trafficInfo = trafficInfoConvertor.convertShareInfoToCarInfo(shareInfo);
+        trafficInfoRepository.save(trafficInfo);
+        return trafficInfo;
     }
 
-    private boolean updateShareInfo(Location shareLocation, TrafficInfo carInfo) {
+    private boolean updateTrafficInfoLocation(Location shareLocation, TrafficInfo carInfo) {
         Location storedLocation = JsonUtil.parseJson(carInfo.getLocation(), Location.class);
         if (LocationUtil.distance(shareLocation.getLatitude(), shareLocation.getLongitude(),
                 storedLocation.getLatitude(), storedLocation.getLongitude()) < MIN_DISTANCE) {
-            carInfoRepository.updateTrafficInfo(carInfo.getNumOfPeople() + ONE, carInfo.getLocation(), carInfo.getUuid());
+            trafficInfoRepository.updateTrafficInfo(carInfo.getNumOfPeople() + ONE, carInfo.getLocation(), carInfo.getUuid());
             return true;
         }
         return false;
     }
 
 
-    public ResponseEntity handleShareInfo(ShareInfo shareInfo) {
-        if (shareInfo.getAboard()) {
-            saveOrUpdateInfo(shareInfo);
-        } else {
-            //To Do decrease number of people.
-        }
-        return ResponseEntity.ok().build();
+    public void handleShareInfo(String phoneNum, ShareInfo shareInfo) {
+        TrafficInfo trafficInfo = saveTrafficInfo(shareInfo);
+        Message message = trafficMessageConvertor.covertTrafficInfoToMessage(phoneNum, trafficInfo);
+        messageRepository.save(message);
+    }
+
+    public void removeInfo(String phoneNum, String messageUuid) {
+        TrafficInfo trafficInfo = trafficInfoRepository.findByUuid(messageUuid);
+        trafficInfoRepository.updateNumberOfPeople(trafficInfo.getNumOfPeople() - 1, messageUuid);
+        messageRepository.deleteByPhoneNumAndInfoUuid(phoneNum, messageUuid);
     }
 }

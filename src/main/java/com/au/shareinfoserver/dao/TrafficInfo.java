@@ -3,6 +3,7 @@ package com.au.shareinfoserver.dao;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid"})})
 public class TrafficInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -26,4 +26,10 @@ public interface TrafficInfoRepository extends JpaRepository<TrafficInfo, Long> 
     @Query("update TrafficInfo info set info.numOfPeople = :numOfPeople, info.location = :location where  info.uuid = :uuid")
     void updateTrafficInfo(@Param("numOfPeople") Integer numOfPeople, @Param("location") String location, @Param("uuid") String uuid);
 
+    @Modifying(clearAutomatically = true)
+    @Query("update TrafficInfo info set info.numOfPeople = :numOfPeople where  info.uuid = :uuid")
+    void updateNumOfPeople(@Param("numOfPeople") Integer numOfPeople, @Param("uuid") String uuid);
+
+    TrafficInfo findByUuid(String uuid);
+
 }

@@ -1,7 +1,6 @@
 package com.au.shareinfoserver.dao;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Message {
@@ -14,9 +13,9 @@ public class Message {
     @Column(nullable = false)
     private String infoUuid;
     @Column(nullable = false)
-    private String message;
-    @Column(nullable = false)
     private Integer type;
+    @Column(nullable = false)
+    private boolean status = true;
 
     public Integer getId() {
         return id;
@@ -42,19 +41,19 @@ public class Message {
         this.infoUuid = infoUuid;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public Integer getType() {
         return type;
     }
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
