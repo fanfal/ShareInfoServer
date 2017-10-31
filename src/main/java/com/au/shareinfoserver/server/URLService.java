@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Component
 public class URLService {
-    public static final String BASE_HOST = "https://share-future.herokuapp.com/";
+    public static final String BASE_HOST = "http://10.0.2.2:8080";
 
     public String getJsonLinks() {
         HashMap links = Maps.newHashMap();
@@ -19,8 +19,11 @@ public class URLService {
 
     private Map<String, String> getLinks() {
         HashMap links = Maps.newHashMap();
-        links.put("post_share_location_info", addHrefToLink(assembleLink("traffic/share")));
-        links.put("get_obtain_location_info", addHrefToLink(assembleLink("traffic/obtain")));
+        links.put("postShareLocationInfo", addHrefToLink(assembleLink("traffic/share")));
+        links.put("getObtainLocationInfo", addHrefToLink(assembleLink("traffic/obtain")));
+        links.put("userLogin", addHrefToLink(assembleLink("/user/login")));
+        links.put("userRegister", addHrefToLink(assembleLink("/user/register")));
+        links.put("refreshToken", addHrefToLink(assembleLink("/user/refresh")));
         return links;
     }
 
