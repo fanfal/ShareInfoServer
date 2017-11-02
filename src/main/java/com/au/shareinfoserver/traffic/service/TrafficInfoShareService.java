@@ -7,11 +7,11 @@ import com.au.shareinfoserver.dao.TrafficInfoRepository;
 import com.au.shareinfoserver.traffic.convertor.TrafficInfoConvertor;
 import com.au.shareinfoserver.traffic.convertor.TrafficMessageConvertor;
 import com.au.shareinfoserver.traffic.model.Location;
+import com.au.shareinfoserver.traffic.model.ShareBusInfoResponse;
 import com.au.shareinfoserver.traffic.model.ShareInfo;
 import com.au.shareinfoserver.utils.JsonUtil;
 import com.au.shareinfoserver.utils.LocationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -70,10 +70,12 @@ public class TrafficInfoShareService {
     }
 
 
-    public void handleShareInfo(String phoneNum, ShareInfo shareInfo) {
+    public ShareBusInfoResponse handleShareInfo(String phoneNum, ShareInfo shareInfo) {
         TrafficInfo trafficInfo = saveTrafficInfo(shareInfo);
         Message message = trafficMessageConvertor.covertTrafficInfoToMessage(phoneNum, trafficInfo);
         messageRepository.save(message);
+
+        return new ShareBusInfoResponse(message.getInfoUuid());
     }
 
     public void removeInfo(String phoneNum, String messageUuid) {

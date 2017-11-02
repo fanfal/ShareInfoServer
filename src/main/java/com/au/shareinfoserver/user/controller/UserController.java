@@ -41,13 +41,15 @@ public class UserController {
         userValidator.validate(request, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(null);
+            throw new IllegalArgumentException("Password or Name not follow the rule.");
         }
         User user = new User();
         user.setPhoneNum(request.getPhoneNum());
         user.setPassWord(request.getPassword());
         userService.register(user);
-        return ResponseEntity.ok().build();
+
+        final String token = userService.login(request.getPhoneNum(), request.getPassword());
+        return ResponseEntity.ok().body(JsonUtil.toJson(new JwtAuthenticationResponse(token)));
     }
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)

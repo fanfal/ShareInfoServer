@@ -1,7 +1,9 @@
 package com.au.shareinfoserver.traffic.controller;
 
+import com.au.shareinfoserver.traffic.model.ShareBusInfoResponse;
 import com.au.shareinfoserver.traffic.model.ShareInfo;
 import com.au.shareinfoserver.traffic.service.TrafficInfoShareService;
+import com.au.shareinfoserver.utils.JsonUtil;
 import com.au.shareinfoserver.utils.JwtTokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,8 @@ public class TrafficInfoShareController {
         if (token != null && token.startsWith(tokenHead)) {
             final String authToken = token.substring(tokenHead.length());
             String phoneNum = jwtTokenUtil.getUsernameFromToken(authToken);
-            shareService.handleShareInfo(phoneNum, shareInfo);
-            return ResponseEntity.ok().build();
+            ShareBusInfoResponse response = shareService.handleShareInfo(phoneNum, shareInfo);
+            return ResponseEntity.ok(JsonUtil.toJson(response));
         }
         return ResponseEntity.badRequest().body(null);
     }

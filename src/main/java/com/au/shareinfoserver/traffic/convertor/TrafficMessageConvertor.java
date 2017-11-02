@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TrafficMessageConvertor {
-    public Message covertTrafficInfoToMessage(String phoneNum,TrafficInfo trafficInfo){
+    public Message covertTrafficInfoToMessage(String phoneNum, TrafficInfo trafficInfo) {
         Message message = new Message();
         message.setInfoUuid(trafficInfo.getUuid());
         message.setPhoneNum(phoneNum);
