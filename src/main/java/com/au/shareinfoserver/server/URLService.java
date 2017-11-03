@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Component
 public class URLService {
-    public static final String BASE_HOST = "http://10.0.2.2:8080";
+    public static final String BASE_HOST = "https://share-future.herokuapp.com";
 
     public String getJsonLinks() {
         HashMap links = Maps.newHashMap();
