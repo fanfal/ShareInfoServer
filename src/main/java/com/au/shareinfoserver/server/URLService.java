@@ -19,11 +19,12 @@ public class URLService {
 
     private Map<String, String> getLinks() {
         HashMap links = Maps.newHashMap();
-        links.put("postShareLocationInfo", addHrefToLink(assembleLink("traffic/share")));
-        links.put("getObtainLocationInfo", addHrefToLink(assembleLink("traffic/obtain")));
+        links.put("postShareLocationInfo", addHrefToLink(assembleLink("/traffic/share")));
+        links.put("getObtainLocationInfo", addHrefToLink(assembleLink("/traffic/obtain")));
         links.put("userLogin", addHrefToLink(assembleLink("/user/login")));
         links.put("userRegister", addHrefToLink(assembleLink("/user/register")));
         links.put("refreshToken", addHrefToLink(assembleLink("/user/refresh")));
+        links.put("removeShareLocationInfo", addHrefToLink(assembleLink("/traffic/remove")));
         return links;
     }
 

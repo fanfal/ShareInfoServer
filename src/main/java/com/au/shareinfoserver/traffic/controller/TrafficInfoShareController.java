@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping(value = "/traffic", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/traffic")
 public class TrafficInfoShareController {
     @Autowired
     TrafficInfoShareService shareService;
@@ -25,7 +25,7 @@ public class TrafficInfoShareController {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
-    @RequestMapping(value = "/share")
+    @RequestMapping(value = "/share", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity shareLocation(@RequestHeader("${jwt.header}") String token, @RequestBody final ShareInfo shareInfo) throws JsonProcessingException {
         if (token != null && token.startsWith(tokenHead)) {
             final String authToken = token.substring(tokenHead.length());
@@ -37,7 +37,7 @@ public class TrafficInfoShareController {
     }
 
 
-    @RequestMapping(value = "/remove")
+    @RequestMapping(value = "/remove", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity shareLocation(@RequestHeader("${jwt.header}") String token, @RequestParam("uuid") String messageUuid) throws JsonProcessingException {
         if (token != null && token.startsWith(tokenHead)) {
             final String authToken = token.substring(tokenHead.length());
