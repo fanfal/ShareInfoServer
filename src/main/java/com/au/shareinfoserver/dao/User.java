@@ -1,6 +1,7 @@
 package com.au.shareinfoserver.dao;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -19,7 +20,7 @@ public class User {
     private Integer cash = 0;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "message_phone_num")
+    @JoinColumn(name = "phoneNum", referencedColumnName = "phoneNum")
     private Set<Message> messages;
 
     public Integer getId() {
