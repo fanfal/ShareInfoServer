@@ -18,8 +18,8 @@ public class User {
     private Integer credit = 0;
     private Integer cash = 0;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "User_Message", joinColumns = {@JoinColumn(name = "User_phoneNum")}, inverseJoinColumns = {@JoinColumn(name = "Message_phoneNum")})
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "message_phone_num")
     private Set<Message> messages;
 
     public Integer getId() {
