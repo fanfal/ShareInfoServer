@@ -80,7 +80,10 @@ public class TrafficInfoShareService {
 
     public void removeInfo(String phoneNum, String messageUuid) {
         TrafficInfo trafficInfo = trafficInfoRepository.findByUuid(messageUuid);
-        trafficInfoRepository.updateNumberOfPeople(trafficInfo.getNumOfPeople() - 1, messageUuid);
+        if (trafficInfo != null) {
+            trafficInfoRepository.updateNumberOfPeople(trafficInfo.getNumOfPeople() - 1, messageUuid);
+        }
+
         messageRepository.deleteByPhoneNumAndInfoUuid(phoneNum, messageUuid);
     }
 }
