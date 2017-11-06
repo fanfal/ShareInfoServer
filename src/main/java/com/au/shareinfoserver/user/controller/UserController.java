@@ -2,6 +2,7 @@ package com.au.shareinfoserver.user.controller;
 
 import com.au.shareinfoserver.dao.User;
 import com.au.shareinfoserver.dao.UserRepository;
+import com.au.shareinfoserver.model.AuthException;
 import com.au.shareinfoserver.security.model.JwtAuthenticationRequest;
 import com.au.shareinfoserver.security.model.JwtAuthenticationResponse;
 import com.au.shareinfoserver.user.service.UserService;
@@ -41,7 +42,7 @@ public class UserController {
         userValidator.validate(request, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException("Password or Name not follow the rule.");
+            throw new AuthException("User name duplicated.");
         }
         User user = new User();
         user.setPhoneNum(request.getPhoneNum());

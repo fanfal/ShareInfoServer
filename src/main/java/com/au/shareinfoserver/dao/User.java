@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"phoneNum"})})
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
