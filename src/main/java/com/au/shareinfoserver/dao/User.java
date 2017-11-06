@@ -1,11 +1,12 @@
 package com.au.shareinfoserver.dao;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"phoneNum"})})
-public class User {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -19,7 +20,7 @@ public class User {
     private Integer cash = 0;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "message_phone_num")
+    @JoinColumn(name = "phoneNum", referencedColumnName = "phoneNum")
     private Set<Message> messages;
 
     public Integer getId() {
