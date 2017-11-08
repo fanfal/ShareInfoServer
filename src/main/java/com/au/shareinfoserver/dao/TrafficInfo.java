@@ -21,7 +21,7 @@ public class TrafficInfo {
     @Column(nullable = false)
     private String location;
 
-    private Integer numOfPeople = 0;
+    private Integer numOfPeople = 1;
 
     public Integer getId() {
         return id;
